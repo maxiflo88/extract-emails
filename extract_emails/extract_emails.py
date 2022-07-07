@@ -7,6 +7,7 @@ import requests
 from lxml import html
 from dataclasses import dataclass, field
 from .top_level_domains import TOP_LEVEL_DOMAINS
+
 @dataclass
 class Info:
     url:str
@@ -28,7 +29,7 @@ class ExtractEmails:
         self.infos=[]
         self.emails = []
         self.headers = {'User-Agent': user_agent}
-        self.extract_emails(url)
+        self.extract_emails(self.url)
 
     def format_url(self, url):
         formated_url=url
@@ -71,7 +72,8 @@ class ExtractEmails:
             if newemails:
                 self.emails.extend(newemails)
                 self.infos.append(Info(url, set(newemails)))
-        self.print_logs(url, emails)
+        if self.print_log:
+            self.print_logs(url, emails)
 
     def get_all_links(self, page):
         try:
@@ -106,6 +108,8 @@ class ExtractEmails:
         
 
 if __name__ == '__main__':
-    em = ExtractEmails('https://www.point2.co.uk', print_log=True, user_agent='Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:66.0) Gecko/20100101 Firefox/66.0',
-                       depth=1000)
-    em.to_csv('ahr.csv')
+    em = ExtractEmails('https://www.point2.co.uk', 
+                        print_log=True, 
+                        user_agent='Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:66.0) Gecko/20100101 Firefox/66.0',
+                        depth=1000)
+    em.to_csv('point2.csv')
