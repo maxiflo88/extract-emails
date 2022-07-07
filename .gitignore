@@ -102,3 +102,6 @@ ENV/
 
 .idea
 .pypirc
+
+# csv files
+.csv
