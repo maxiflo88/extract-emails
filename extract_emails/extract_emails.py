@@ -6,7 +6,7 @@ import re
 import requests
 from lxml import html
 from dataclasses import dataclass, field
-from top_level_domains import TOP_LEVEL_DOMAINS
+from .top_level_domains import TOP_LEVEL_DOMAINS
 @dataclass
 class Info:
     url:str
