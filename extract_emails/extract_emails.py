@@ -7,7 +7,7 @@ import requests
 from lxml import html
 from dataclasses import dataclass, field
 import keyboard
-from .top_level_domains import TOP_LEVEL_DOMAINS
+from top_level_domains import TOP_LEVEL_DOMAINS
 
 @dataclass
 class Info:
@@ -40,7 +40,7 @@ class ExtractEmails:
         return formated_url
 
     def skipURL(self):
-        if keyboard.is_pressed("q") or keyboard.is_released("q"): raise Exception(f'Skip {self.url}') 
+        if keyboard.is_pressed("esc"): raise Exception(f'Skip {self.url}') 
 
     def extract_emails(self, url:str):
 
