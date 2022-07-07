@@ -6,6 +6,7 @@ import re
 import requests
 from lxml import html
 from dataclasses import dataclass, field
+import keyboard
 from .top_level_domains import TOP_LEVEL_DOMAINS
 
 @dataclass
@@ -18,9 +19,10 @@ class ExtractEmails:
     Extract emails from a given website
     """
 
-    def __init__(self, url: str, depth: int=None, print_log: bool=False, ssl_verify: bool=True, user_agent: str=None, request_delay: float=0):
+    def __init__(self, url: str, depth: int=None, print_log: bool=False, ssl_verify: bool=True, user_agent: str=None, request_delay: float=0, skipKey:bool=True):
         self.delay = request_delay
         self.verify = ssl_verify
+        self.skipKey=skipKey
         self.url=self.format_url(url)
         self.print_log = print_log
         self.depth = depth
@@ -37,8 +39,12 @@ class ExtractEmails:
         if "https://" not in formated_url: formated_url="https://"+formated_url
         return formated_url
 
+    def skipURL(self):
+        if keyboard.is_pressed("q") or keyboard.is_released("q"): raise Exception(f'Skip {self.url}') 
 
     def extract_emails(self, url:str):
+
+        if self.skipKey: self.skipURL()
         r = requests.get(url, headers=self.headers, verify=self.verify)
         self.scanned.append(url)
         if r.status_code == 200:
