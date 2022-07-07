@@ -53,7 +53,7 @@ class ExtractEmails:
         print(f'URL: {url}, found emails: {len(emails)}')
 
     def is_bad_link(self, link_href):
-        block_links=['news', 'archive', 'service', 'career', 'project', 'facebook', 'linkedin', 'reddit', 'twitter', 'amazon', 'uk.indeed.com', 'youtube', 'researchgate', 'sketchup', 'autodesk', '.edu']
+        block_links=['news', 'archive', 'service', 'career', 'project', 'facebook', 'linkedin', 'reddit', 'twitter', 'amazon', 'uk.indeed.com', 'youtube', 'researchgate', 'sketchup', 'autodesk', '.edu', '.pdf', 'uploads', '.jpg', '.jpeg', '.png']
         for blink in block_links:
             if blink in link_href.lower():
                 return True
